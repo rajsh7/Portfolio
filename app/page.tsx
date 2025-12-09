@@ -637,26 +637,39 @@ export default function Home() {
           </p>
         </motion.a>
 
-        {/* Forever E-Commerce (no link provided, keeping as static card) */}
-        <motion.article
-          whileHover={{ y: -4 }}
-          className="rounded-2xl border border-white/10 bg-white/5 backdrop-blur-sm p-5 flex flex-col gap-3"
-        >
-          <p className="text-[11px] uppercase tracking-[0.22em] text-gray-400">
-            Web App · E-Commerce
-          </p>
-          <h4 className="text-base md:text-lg font-semibold">
-            Forever E-Commerce
-          </h4>
-          <p className="text-sm text-gray-300 leading-relaxed">
-            An end-to-end e-commerce experience with product listing, cart,
-            authentication, and order flows designed with a focus on UX clarity
-            and performance.
-          </p>
-          <p className="mt-2 text-[12px] text-gray-400">
-            React · Node.js · MongoDB
-          </p>
-        </motion.article>
+        {/* Vogue Clothing E-Commerce Platform */}
+          <motion.article
+            whileHover={{ y: -4 }}
+            onClick={() => window.open("https://vogue-clothing.vercel.app/", "_blank")}
+            className="cursor-pointer rounded-2xl border border-white/10 bg-white/5 backdrop-blur-sm p-5 flex flex-col gap-3 group transition-all"
+          >
+            <p className="text-[11px] uppercase tracking-[0.22em] text-gray-400">
+              Web App · E-Commerce
+            </p>
+
+            <h4 className="text-base md:text-lg font-semibold group-hover:text-white transition-colors">
+              Vogue Clothing
+            </h4>
+
+            <p className="text-sm text-gray-300 leading-relaxed">
+              A modern full-stack e-commerce platform with fashion-focused UI, dynamic
+              product catalog, cart management, secure authentication, and a seamless
+              shopping workflow designed for a premium online clothing experience.
+            </p>
+
+            <a
+              href="https://vogue-clothing.vercel.app/"
+              target="_blank"
+              className="text-sm text-blue-300 hover:text-blue-200 underline underline-offset-[6px] decoration-blue-300/40 mt-1"
+            >
+              Visit Project →
+            </a>
+
+            <p className="mt-2 text-[12px] text-gray-400">
+              React · Node.js · MongoDB
+            </p>
+          </motion.article>
+
 
         {/* AI Object Detection */}
         <motion.a
