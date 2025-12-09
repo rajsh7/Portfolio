@@ -720,12 +720,12 @@ export default function Home() {
     {/* Optional: Resume Download + Footer line */}
     <div className="flex flex-col items-center gap-4">
           <a
-            href="/resume.pdf"
-            download="Raj-Sharma-Resume.pdf"
-            className="px-6 py-3 rounded-full border border-white/20 bg-white/10 hover:bg-white/20 uppercase tracking-[0.25em] text-xs md:text-sm"
-          >
-            Download Resume
-          </a>
+          href="/resume.pdf"          // 👈 must match the real filename in /public
+          download="Raj-Sharma-Resume.pdf"
+          className="px-6 py-3 rounded-full border border-white/20 bg-white/10 hover:bg-white/20 uppercase tracking-[0.25em] text-xs md:text-sm"
+        >
+          Download Resume
+        </a>
       <p className="text-gray-400 text-xs md:text-sm mt-7">
         Based in India · Open to remote & onsite opportunities.
       </p>
