@@ -1,6 +1,7 @@
 "use client";
 
-import { motion } from "framer-motion";
+import { useEffect, useState } from "react";
+import { motion, AnimatePresence } from "framer-motion";
 import TechRadar from "@/components/TechRadar";
 import GitHubStats from "@/components/GitHubStats";
 import ResumeDownloadButton from "@/components/ResumePDF";
@@ -10,232 +11,177 @@ const sectionClass =
   "min-h-screen flex items-center justify-center px-6 md:px-16";
 
 export default function Home() {
+  const year = new Date().getFullYear();
+  const [showIntro, setShowIntro] = useState(true);
+
+  useEffect(() => {
+    const t = setTimeout(() => setShowIntro(false), 2000); // 2s intro
+    return () => clearTimeout(t);
+  }, []);
+
   return (
     <main className="bg-black text-white">
       {/* HOME / HERO */}
-      <section
+<section
   id="home"
-  className="relative h-screen w-full overflow-hidden flex items-center justify-center px-6 md:px-16 reveal-up"
+  className="relative h-screen w-full overflow-hidden flex items-center justify-center px-6 md:px-16"
 >
-  {/* BACKGROUND IMAGE */}
+  {/* SOLID DARK BACKGROUND */}
+  <div className="absolute inset-0 bg-[#05060b]" />
+
+  {/* GLOWING GRADIENT BLOB BEHIND TEXT */}
   <div
-    className="absolute inset-0 w-full h-full bg-cover bg-center scale-105 blur-sm"
-    style={{
-      backgroundImage: "url('/raj-text.jpg')",
-    }}
+    className="
+      pointer-events-none
+      absolute
+      inset-x-1/2
+      -translate-x-1/2
+      h-64 md:h-80
+      w-[110%] md:w-[90%]
+      rounded-[999px]
+      bg-gradient-to-r from-[#2563eb] via-[#4f46e5] to-[#ec4899]
+      opacity-60
+      blur-3xl
+      blob
+    "
   />
 
-  {/* DARK + BLUR OVERLAY */}
-  <div className="absolute inset-0 bg-black/10 backdrop-blur-md" />
+  {/* OPTIONAL EXTRA GLOW ON THE SIDE */}
+  <div
+    className="
+      pointer-events-none
+      absolute
+      right-[-10%]
+      bottom-[-10%]
+      h-72 w-72
+      rounded-[999px]
+      bg-gradient-to-tr from-[#22d3ee] via-[#6366f1] to-[#a855f7]
+      opacity-30
+      blur-3xl
+      blob
+    "
+  />
 
   {/* CONTENT */}
-  <div className="relative z-10 max-w-4xl text-center space-y-5">
+  <div className="relative z-10 flex flex-col items-center gap-6 text-center">
+    {/* MAIN WORD */}
+    <div className="relative inline-flex items-center justify-center px-8">
+      {/* subtle glow directly behind the word */}
+      <div className="absolute inset-x-[-80px] h-28 md:h-36 rounded-full bg-gradient-to-r from-[#2563eb] via-[#4f46e5] to-[#ec4899] opacity-55 blur-3xl" />
 
-    {/* Subtext */}
-    <motion.h1
-            initial={{ backgroundPositionX: "50%" }}
-            animate={{ backgroundPositionX: ["35%", "65%", "35%"] }}
-            transition={{
-              duration: 10,
-              ease: "easeInOut",
-              repeat: Infinity,
-            }}
-            className="
-              text-4xl md:text-8xl font-extrabold 
-              leading-tight 
-              text-transparent 
-              bg-clip-text 
-            "
-            style={{
-              backgroundImage: "url('/hero-bg.jpg')",   // your photo
-              backgroundSize: "140%",                   // bigger so it can move
-              backgroundRepeat: "no-repeat",
-              backgroundPositionY: "50%",
-            }}
-          >
-            Let's Build Something Great !
-          </motion.h1>
-          <motion.p
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.2, duration: 0.8 }}
-            className="text-base md:text-lg text-gray-300"
-          >
-          • | Code That Connects | •
-          </motion.p>
-      </div>
+      <h1 className="relative text-4xl md:text-7xl lg:text-8xl font-extrabold tracking-[0.35em] uppercase">
+        <span>PORTFOLIO</span>
+        <span className="inline-block ml-2 align-top text-[0.45em]">•</span>
+      </h1>
+    </div>
+
+    {/* SMALL SUBTEXT */}
+    {/* <p className="text-[10px] md:text-xs uppercase tracking-[0.35em] text-gray-400">
+      Raj Sharma · Frontend &amp; Full Stack Developer
+    </p> */}
+
+    {/* <p className="text-xs md:text-sm text-gray-500">
+      Scroll to explore the work happening behind the screen.
+    </p> */}
+  </div>
 </section>
+
 
 {/* ABOUT SECTION */}
 <section
   id="about"
-  className="relative w-full bg-black py-24 md:py-32 px-6 md:px-16 reveal-up"
+  className="relative w-full bg-black py-28 md:py-36 px-6 md:px-16 overflow-hidden reveal-up"
 >
-  <div className="max-w-6xl mx-auto grid gap-12 md:grid-cols-[1.1fr_1.2fr] items-start">
+  {/* GRADIENT BLOBS */}
+  <div className="gradient-blob blob-blue w-[380px] h-[380px] top-20 left-0" />
+  <div className="gradient-blob blob-purple w-[300px] h-[300px] bottom-10 right-10 opacity-30" />
 
-    {/* LEFT: TITLE + MAIN COPY */}
-    <motion.div
-      initial={{ opacity: 0, y: 40 }}
+  <div className="max-w-4xl mx-auto text-left space-y-5 relative z-10">
+    
+    {/* Section Label */}
+    <motion.p
+      initial={{ opacity: 0, y: 20 }}
       whileInView={{ opacity: 1, y: 0 }}
-      viewport={{ once: true, amount: 0.3 }}
-      transition={{ duration: 0.7, ease: "easeOut" }}
-      className="space-y-6"
+      viewport={{ once: true }}
+      transition={{ duration: 0.6 }}
+      className="text-xs md:text-sm uppercase tracking-[0.35em] text-gray-500"
     >
-      <p className="text-xs md:text-sm uppercase tracking-[0.35em] text-gray-500">
-        About
+      About
+    </motion.p>
+
+    {/* Main Title */}
+    <motion.h2
+      initial={{ opacity: 0, y: 25 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      viewport={{ once: true }}
+      transition={{ duration: 0.7 }}
+      className="text-3xl md:text-4xl lg:text-5xl font-semibold leading-tight"
+    >
+      I craft animated, experience-driven web interfaces.
+    </motion.h2>
+
+    {/* Description */}
+    <motion.div
+      initial={{ opacity: 0, y: 25 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      viewport={{ once: true }}
+      transition={{ duration: 0.7, delay: 0.1 }}
+      className="space-y-5 text-gray-300 text-sm md:text-base leading-relaxed"
+    >
+      <p>
+        I'm Raj Sharma, a frontend-leaning full-stack developer who loves building 
+        interfaces that feel as good as they look. My work revolves around React, 
+        Next.js, and the MERN stack — combining clean UI, motion, and performance to 
+        turn static designs into alive, scroll-driven experiences.
       </p>
 
-      <h2 className="text-3xl md:text-4xl lg:text-5xl font-semibold leading-tight">
-        I craft animated, experience-driven web interfaces.
-      </h2>
-
-      <p className="text-gray-300 text-sm md:text-base leading-relaxed">
-        I&apos;m Raj Sharma, a frontend-leaning full-stack developer who loves
-        building interfaces that feel as good as they look. My work revolves
-        around React, Next.js, and the MERN stack — combining clean UI, motion,
-        and performance to turn static designs into alive, scroll-driven
-        experiences.
+      <p>
+        I've worked across frontend, backend, AI evaluation, and problem-solving roles — 
+        from building MERN applications at Purple Merit Technologies to designing 
+        scalable backend services at Shunya Ekai Technologies, and even training AI 
+        models to write better code as a Freelance AI Trainer at Outlier. Earlier, I 
+        helped thousands of students as a Computer Science Subject Matter Expert at Chegg.
       </p>
-
-      <p className="text-gray-300 text-sm md:text-base leading-relaxed">
-        I&apos;ve worked across frontend, backend, AI evaluation, and
-        problem-solving roles — from building MERN applications at{" "}
-        <span className="text-gray-100 font-medium">
-          Purple Merit Technologies
-        </span>{" "}
-        to designing scalable backend services at{" "}
-        <span className="text-gray-100 font-medium">
-          Shunya Ekai Technologies
-        </span>, and even training AI models to write better code as a{" "}
-        Freelance AI Trainer at Outlier. Earlier, I helped thousands of
-        students as a Computer Science Subject Matter Expert at Chegg.
-      </p>
-
-      <div className="mt-4 flex flex-wrap gap-3">
-        {[
-          "Frontend Focused",
-          "MERN Stack",
-          "Next.js & React",
-          "UI Animations",
-          "Problem Solving",
-        ].map((pill) => (
-          <span
-            key={pill}
-            className="text-xs md:text-[13px] uppercase tracking-[0.22em] border border-white/10 rounded-full px-4 py-2 text-gray-300/90 bg-white/5 backdrop-blur-sm"
-          >
-            {pill}
-          </span>
-        ))}
-      </div>
     </motion.div>
 
-    {/* RIGHT: CARD + STATS + STACK */}
+    {/* Skill Pills */}
     <motion.div
-      initial={{ opacity: 0, y: 40 }}
+      initial={{ opacity: 0, y: 25 }}
       whileInView={{ opacity: 1, y: 0 }}
-      viewport={{ once: true, amount: 0.2 }}
-      transition={{ duration: 0.8, ease: "easeOut", delay: 0.1 }}
-      className="space-y-6"
+      viewport={{ once: true }}
+      transition={{ duration: 0.7, delay: 0.15 }}
+      className="flex flex-wrap gap-3 pt-4"
     >
-      {/* MAIN CARD */}
-      <div className="relative overflow-hidden rounded-3xl border border-white/10 bg-white/5 backdrop-blur-md p-6 md:p-8">
-        <div className="pointer-events-none absolute inset-0 opacity-25 mix-blend-screen bg-[radial-gradient(circle_at_top,_#ffffff33,_transparent_60%)]" />
-
-        <div className="relative space-y-4">
-          <h3 className="text-lg md:text-xl font-semibold">
-            A bit about how I work
-          </h3>
-          <p className="text-gray-300 text-sm md:text-[15px] leading-relaxed">
-            At Purple Merit, I build and maintain dynamic web apps using the
-            MERN stack — from frontend views in React to backend APIs in Node
-            and Express, with secure JWT-based authentication and smooth data
-            flow between client and server.
-          </p>
-          <p className="text-gray-300 text-sm md:text-[15px] leading-relaxed">
-            Previously at Shunya Ekai, I focused on backend engineering:
-            designing RESTful APIs, optimizing MongoDB queries, and ensuring
-            secure, scalable services. As a Freelance AI Trainer at Outlier and
-            SME at Chegg, I refined my ability to reason about complex problems,
-            debug efficiently, and explain solutions clearly.
-          </p>
-
-          <div className="grid gap-4 md:grid-cols-3 pt-4 border-t border-white/10 mt-4">
-            <div className="space-y-1">
-              <p className="text-[11px] uppercase tracking-[0.22em] text-gray-500">
-                Location
-              </p>
-              <p className="text-sm text-gray-200">India • IST</p>
-            </div>
-            <div className="space-y-1">
-              <p className="text-[11px] uppercase tracking-[0.22em] text-gray-500">
-                Current Role
-              </p>
-              <p className="text-sm text-gray-200">
-                Full Stack Dev Intern · MERN
-              </p>
-            </div>
-            <div className="space-y-1">
-              <p className="text-[11px] uppercase tracking-[0.22em] text-gray-500">
-                Mindset
-              </p>
-              <p className="text-sm text-gray-200">
-                Detail-oriented, learning-driven
-              </p>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      {/* STACK CARDS */}
-      <div className="grid gap-4 md:grid-cols-3">
-        <motion.div
-          whileHover={{ y: -4 }}
-          className="rounded-2xl border border-white/10 bg-white/5 px-5 py-4 text-sm"
+      {[
+        "Frontend Focused",
+        "MERN Stack",
+        "Next.js & React",
+        "UI Animations",
+        "Problem Solving",
+      ].map((pill) => (
+        <span
+          key={pill}
+          className="text-xs md:text-[13px] uppercase tracking-[0.22em] border border-white/10 
+                     rounded-full px-4 py-2 text-gray-300/90 bg-white/5 backdrop-blur-sm"
         >
-          <p className="text-[11px] uppercase tracking-[0.22em] text-gray-500 mb-2">
-            Core Stack
-          </p>
-          <p className="text-gray-200 text-sm">
-            React, Next.js, Node.js, Express, MongoDB, REST APIs
-          </p>
-        </motion.div>
-
-        <motion.div
-          whileHover={{ y: -4 }}
-          className="rounded-2xl border border-white/10 bg-white/5 px-5 py-4 text-sm"
-        >
-          <p className="text-[11px] uppercase tracking-[0.22em] text-gray-500 mb-2">
-            Languages
-          </p>
-          <p className="text-gray-200 text-sm">
-            JavaScript, Java, SQL, C++, Python
-          </p>
-        </motion.div>
-
-        <motion.div
-          whileHover={{ y: -4 }}
-          className="rounded-2xl border border-white/10 bg-white/5 px-5 py-4 text-sm"
-        >
-          <p className="text-[11px] uppercase tracking-[0.22em] text-gray-500 mb-2">
-            I enjoy building
-          </p>
-          <p className="text-gray-200 text-sm">
-            Animated portfolios, dashboards, and product UIs with smooth
-            micro-interactions.
-          </p>
-        </motion.div>
-      </div>
+          {pill}
+        </span>
+      ))}
     </motion.div>
+<TechRadar />
   </div>
 </section>
-<TechRadar />
 
 {/* EXPERIENCE SECTION */}
 <section
   id="experience"
-  className="relative w-full bg-black py-24 md:py-32 px-6 md:px-16 reveal-up"
+  className="relative w-full bg-black py-28 md:py-36 px-6 md:px-16 overflow-hidden reveal-up"
 >
-  <div className="max-w-6xl mx-auto">
+  {/* BACKGROUND GRADIENT LAYERS */}
+  <div className="absolute inset-0 bg-gradient-to-b from-transparent via-[#4B5CF022] to-black" />
+  <div className="gradient-blob blob-purple w-[420px] h-[420px] top-32 left-1/2 -translate-x-1/2 opacity-40" />
+
+  <div className="relative z-10 max-w-6xl mx-auto">
     {/* Header */}
     <motion.div
       initial={{ opacity: 0, y: 30 }}
@@ -461,9 +407,13 @@ export default function Home() {
 {/* PROJECTS SECTION */}
 <section
   id="projects"
-  className="relative w-full bg-black py-24 md:py-32 px-6 md:px-16 reveal-up"
+  className="relative w-full bg-black py-28 md:py-36 px-6 md:px-16 overflow-hidden reveal-up"
 >
-  <div className="max-w-6xl mx-auto space-y-12 md:space-y-16">
+  {/* BACKGROUND BLOBS */}
+  <div className="gradient-blob blob-blue w-[350px] h-[350px] top-10 -left-20" />
+  <div className="gradient-blob blob-purple w-[400px] h-[400px] bottom-0 right-0" />
+
+  <div className="relative z-10 max-w-6xl mx-auto space-y-16">
     {/* Header */}
     <motion.div
       initial={{ opacity: 0, y: 30 }}
@@ -499,10 +449,16 @@ export default function Home() {
           rel="noreferrer"
           whileHover={{ y: -6, scale: 1.01 }}
           transition={{ type: "spring", stiffness: 200, damping: 18 }}
-          className="group cursor-pointer relative overflow-hidden rounded-3xl border border-white/10 bg-white/5 backdrop-blur-md p-5 md:p-6 flex flex-col gap-4"
+          className="group cursor-pointer relative overflow-hidden rounded-3xl border border-white/10 bg-white/5 backdrop-blur-md flex flex-col"
         >
-          <div className="pointer-events-none absolute inset-0 opacity-20 group-hover:opacity-40 transition-opacity bg-[radial-gradient(circle_at_top,_#ffffff33,_transparent_55%)]" />
-          <div className="relative flex-1 flex flex-col gap-3">
+          <div className="h-40 w-full overflow-hidden">
+            <img
+              src="/projects/ai-blog.png"
+              className="h-full w-full object-cover rounded-t-3xl group-hover:scale-110 transition-all duration-500"
+            />
+          </div>
+
+          <div className="p-5 md:p-6 flex flex-col gap-3 flex-1">
             <div className="flex items-center justify-between gap-2">
               <h3 className="text-lg font-semibold">AI Blog Generator UI</h3>
               <span className="text-[11px] uppercase tracking-[0.2em] text-gray-400">
@@ -511,9 +467,8 @@ export default function Home() {
             </div>
 
             <p className="text-sm md:text-[15px] text-gray-300 leading-relaxed">
-              A clean dashboard where users enter a topic and generate long-form
-              blogs with a single click. Simulates Gemini-style AI responses via
-              a mock API.
+              A clean dashboard where users enter a topic and generate long-form blogs
+              with one click.
             </p>
 
             <div className="mt-auto flex flex-wrap gap-2 text-[11px] uppercase tracking-[0.18em] text-gray-400">
@@ -537,25 +492,31 @@ export default function Home() {
           rel="noreferrer"
           whileHover={{ y: -6, scale: 1.01 }}
           transition={{ type: "spring", stiffness: 200, damping: 18 }}
-          className="group cursor-pointer relative overflow-hidden rounded-3xl border border-white/10 bg-white/5 backdrop-blur-md p-5 md:p-6 flex flex-col gap-4"
+          className="group cursor-pointer relative overflow-hidden rounded-3xl border border-white/10 bg-white/5 backdrop-blur-md flex flex-col"
         >
-          <div className="pointer-events-none absolute inset-0 opacity-20 group-hover:opacity-40 transition-opacity bg-[radial-gradient(circle_at_top,_#ffffff33,_transparent_55%)]" />
-          <div className="relative flex-1 flex flex-col gap-3">
+          <div className="h-40 overflow-hidden">
+            <img
+              src="/projects/gitdiagram.png"
+              className="h-full w-full object-cover rounded-t-3xl group-hover:scale-110 transition-all duration-500"
+            />
+          </div>
+
+          <div className="p-5 md:p-6 flex flex-col gap-3 flex-1">
             <div className="flex items-center justify-between gap-2">
               <h3 className="text-lg font-semibold">GitDiagram</h3>
               <span className="text-[11px] uppercase tracking-[0.2em] text-gray-400">
-                Devtool · Visualizer
+                Visualizer
               </span>
             </div>
-            <p className="text-sm md:text-[15px] text-gray-300 leading-relaxed">
-              A visual repo-mapping tool that turns a GitHub repository into an
-              interactive diagram. It analyses folders and files, then shows how
-              modules connect — helping developers quickly understand structure,
-              dependencies, and high-level architecture.
+
+            <p className="text-sm text-gray-300">
+              Converts any GitHub repo into a visual, interactive architecture map
+              showing file relationships.
             </p>
+
             <div className="mt-auto flex flex-wrap gap-2 text-[11px] uppercase tracking-[0.18em] text-gray-400">
               <span className="px-3 py-1 rounded-full border border-white/10 bg-white/5">
-                React / Next.js
+                Next.js
               </span>
               <span className="px-3 py-1 rounded-full border border-white/10 bg-white/5">
                 GitHub API
@@ -574,26 +535,28 @@ export default function Home() {
           rel="noreferrer"
           whileHover={{ y: -6, scale: 1.01 }}
           transition={{ type: "spring", stiffness: 200, damping: 18 }}
-          className="group cursor-pointer relative overflow-hidden rounded-3xl border border-white/10 bg-white/5 backdrop-blur-md p-5 md:p-6 flex flex-col gap-4"
+          className="group cursor-pointer relative overflow-hidden rounded-3xl border border-white/10 bg-white/5 backdrop-blur-md flex flex-col"
         >
-          <div className="pointer-events-none absolute inset-0 opacity-20 group-hover:opacity-40 transition-opacity bg-[radial-gradient(circle_at_top,_#ffffff33,_transparent_55%)]" />
-          <div className="relative flex-1 flex flex-col gap-3">
+          <div className="h-40 overflow-hidden">
+            <img
+              src="/projects/form-builder.png"
+              className="h-full w-full object-cover rounded-t-3xl group-hover:scale-110 transition-all duration-500"
+            />
+          </div>
+
+          <div className="p-5 md:p-6 flex flex-col gap-3 flex-1">
             <div className="flex items-center justify-between gap-2">
-              <h3 className="text-lg font-semibold">
-                Professional Form Builder
-              </h3>
-              <span className="text-[11px] uppercase tracking-[0.2em] text-gray-400">
-                Full Stack
-              </span>
+              <h3 className="text-lg font-semibold">Professional Form Builder</h3>
+              <span className="text-[11px] uppercase text-gray-400">Full Stack</span>
             </div>
-            <p className="text-sm md:text-[15px] text-gray-300 leading-relaxed">
-              A powerful drag-and-drop form builder for creating complex forms
-              without touching code. Includes configuration, validation, live
-              preview, response collection, and analytics.
+
+            <p className="text-sm text-gray-300">
+              Drag-and-drop form builder with validation, analytics, and real-time preview.
             </p>
-            <div className="mt-auto flex flex-wrap gap-2 text-[11px] uppercase tracking-[0.18em] text-gray-400">
+
+            <div className="mt-auto flex flex-wrap gap-2 text-[11px] uppercase text-gray-400">
               <span className="px-3 py-1 rounded-full border border-white/10 bg-white/5">
-                React / Next.js
+                Next.js
               </span>
               <span className="px-3 py-1 rounded-full border border-white/10 bg-white/5">
                 Drag &amp; Drop
@@ -614,62 +577,56 @@ export default function Home() {
       </h3>
 
       <div className="grid gap-5 md:grid-cols-3">
-        {/* GreenCart Logistics Platform */}
+        {/* GreenCart */}
         <motion.a
           href="https://green-cart-mern-uyzg.vercel.app/"
           target="_blank"
           rel="noreferrer"
           whileHover={{ y: -4 }}
-          className="cursor-pointer rounded-2xl border border-white/10 bg-white/5 backdrop-blur-sm p-5 flex flex-col gap-3"
+          className="cursor-pointer rounded-2xl border border-white/10 bg-white/5 backdrop-blur-sm flex flex-col overflow-hidden group"
         >
-          <p className="text-[11px] uppercase tracking-[0.22em] text-gray-400">
-            Web App · Logistics
-          </p>
-          <h4 className="text-base md:text-lg font-semibold">
-            GreenCart Logistics Platform
-          </h4>
-          <p className="text-sm text-gray-300 leading-relaxed">
-            A logistics management platform with tracking, shipment flows, and
-            operational dashboards tailored for inventory and delivery workflows.
-          </p>
-          <p className="mt-2 text-[12px] text-gray-400">
-            MERN stack · role-based views · dashboards
-          </p>
+          <div className="h-40 overflow-hidden">
+            <img
+              src="/projects/greencart.png"
+              className="w-full h-full object-cover group-hover:scale-110 transition-all duration-500"
+            />
+          </div>
+
+          <div className="p-5 flex flex-col gap-3">
+            <p className="text-[11px] uppercase text-gray-400">Logistics · MERN</p>
+            <h4 className="text-lg font-semibold">GreenCart Logistics Platform</h4>
+            <p className="text-sm text-gray-300">
+              Inventory + delivery optimization dashboard with real-time visuals.
+            </p>
+          </div>
         </motion.a>
 
-        {/* Vogue Clothing E-Commerce Platform */}
-          <motion.article
-            whileHover={{ y: -4 }}
-            onClick={() => window.open("https://vogue-clothing.vercel.app/", "_blank")}
-            className="cursor-pointer rounded-2xl border border-white/10 bg-white/5 backdrop-blur-sm p-5 flex flex-col gap-3 group transition-all"
-          >
+        {/* Vogue Clothing */}
+        <motion.article
+          whileHover={{ y: -4 }}
+          onClick={() =>
+            window.open("https://vogue-clothing.vercel.app/", "_blank")
+          }
+          className="cursor-pointer rounded-2xl border border-white/10 bg-white/5 backdrop-blur-sm flex flex-col overflow-hidden group"
+        >
+          <div className="h-40 overflow-hidden">
+            <img
+              src="/projects/vogue.png"
+              className="w-full h-full object-cover group-hover:scale-110 transition-all duration-500"
+            />
+          </div>
+
+          <div className="p-5 gap-3 flex flex-col">
             <p className="text-[11px] uppercase tracking-[0.22em] text-gray-400">
-              Web App · E-Commerce
+              E-Commerce
             </p>
-
-            <h4 className="text-base md:text-lg font-semibold group-hover:text-white transition-colors">
-              Vogue Clothing
-            </h4>
-
-            <p className="text-sm text-gray-300 leading-relaxed">
-              A modern full-stack e-commerce platform with fashion-focused UI, dynamic
-              product catalog, cart management, secure authentication, and a seamless
-              shopping workflow designed for a premium online clothing experience.
+            <h4 className="text-lg font-semibold">Vogue Clothing</h4>
+            <p className="text-sm text-gray-300">
+              Premium fashion e-commerce platform with dynamic product pages and cart flow.
             </p>
-
-            <a
-              href="https://vogue-clothing.vercel.app/"
-              target="_blank"
-              className="text-sm text-blue-300 hover:text-blue-200 underline underline-offset-[6px] decoration-blue-300/40 mt-1"
-            >
-              Visit Project →
-            </a>
-
-            <p className="mt-2 text-[12px] text-gray-400">
-              React · Node.js · MongoDB
-            </p>
-          </motion.article>
-
+            <p className="text-[12px] text-gray-400">React · Node.js · MongoDB</p>
+          </div>
+        </motion.article>
 
         {/* AI Object Detection */}
         <motion.a
@@ -682,13 +639,10 @@ export default function Home() {
           <p className="text-[11px] uppercase tracking-[0.22em] text-gray-400">
             ML · Computer Vision
           </p>
-          <h4 className="text-base md:text-lg font-semibold">
-            AI Object Detection
-          </h4>
+          <h4 className="text-base md:text-lg font-semibold">AI Object Detection</h4>
           <p className="text-sm text-gray-300 leading-relaxed">
-            A project exploring computer vision workflows and object detection
-            pipelines, integrating model outputs into a clean, understandable UI
-            for experimentation.
+            A project exploring computer vision workflows and object detection pipelines,
+            integrating model outputs into a clean, understandable UI.
           </p>
           <p className="mt-2 text-[12px] text-gray-400">
             Python · CV · Model integration
@@ -698,15 +652,34 @@ export default function Home() {
     </div>
   </div>
 </section>
-<GitHubStats />
+
+{/* GITHUB STATS SECTION */}
+<section
+  id="github"
+  className="relative w-full bg-black py-28 md:py-8 px-1 md:px-16 overflow-hidden reveal-up"
+>
+  <div className="gradient-blob blob-purple w-[380px] h-[380px] top-10 left-1/4 opacity-35" />
+  <div className="gradient-blob blob-blue w-[420px] h-[420px] bottom-10 right-10 opacity-45" />
+  <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,_#7B4DF533,_transparent_70%)] opacity-40" />
+
+  <div className="relative z-10 max-w-5xl mx-auto mb-20">
+    <GitHubStats />
+  </div>
+</section>
 
 
 {/* CONTACT SECTION */}
 <section
   id="contact"
-  className="relative w-full bg-black py-24 md:py-32 px-6 md:px-16"
+  className="relative w-full bg-black py-28 md:py-12 px-6 md:px-16 overflow-hidden reveal-up"
 >
-  <div className="max-w-4xl mx-auto text-center space-y-10">
+  {/* MAIN GLOW */}
+  <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,_#7B4DF533,_transparent_70%)] opacity-40" />
+
+  {/* SIDE PURPLE BLOB */}
+  <div className="gradient-blob blob-purple w-[280px] h-[280px] bottom-0 left-1/3 opacity-35" />
+
+  <div className="relative z-10 max-w-4xl mx-auto text-center space-y-12">
     {/* Header */}
     <motion.div
       initial={{ opacity: 0, y: 30 }}
@@ -745,11 +718,67 @@ export default function Home() {
     </div>
   </div>
 </section>
+{/* FOOTER */}
+<section className="relative w-full bg-black py-10 px-6 md:px-16 overflow-hidden">
 
+  {/* Background Gradient */}
+  <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,_#4B5CF022,_transparent_70%)] opacity-60" />
+  <div className="gradient-blob blob-blue w-[260px] h-[260px] -bottom-16 left-10 opacity-40" />
+  <div className="gradient-blob blob-purple w-[260px] h-[260px] -top-10 right-10 opacity-35" />
 
+  <div className="relative z-10 max-w-4xl mx-auto flex flex-col items-center gap-6">
 
+    {/* Social Links */}
+    <div className="flex items-center gap-4 md:gap-6">
 
-      {/* ...keep your ABOUT / EXPERIENCE / PROJECTS / CONTACT sections as they are */}
+      {/* LinkedIn */}
+      <a
+        href="https://www.linkedin.com/in/raj-sharma-1523032ba/"
+        target="_blank"
+        rel="noreferrer"
+        className="flex items-center gap-2 rounded-full border border-white/10 bg-white/5 px-4 py-2 text-sm hover:bg-white/10 transition-colors"
+      >
+        <span className="flex h-6 w-6 items-center justify-center rounded-full bg-[#0A66C2] text-[11px] font-semibold text-white">
+          in
+        </span>
+        <span className="text-gray-200 hidden sm:inline">LinkedIn</span>
+      </a>
+
+      {/* Gmail */}
+      <a
+        href="https://mail.google.com/mail/u/1/#inbox"
+        target="_blank"
+        rel="noreferrer"
+        className="flex items-center gap-2 rounded-full border border-white/10 bg-white/5 px-4 py-2 text-sm hover:bg-white/10 transition-colors"
+      >
+        <span className="flex h-6 w-6 items-center justify-center rounded-full bg-[#EA4335] text-[11px] font-semibold text-white">
+          @
+        </span>
+        <span className="text-gray-200 hidden sm:inline">Gmail</span>
+      </a>
+
+      {/* GitHub */}
+      <a
+        href="https://github.com/rajsh7"
+        target="_blank"
+        rel="noreferrer"
+        className="flex items-center gap-2 rounded-full border border-white/10 bg-white/5 px-4 py-2 text-sm hover:bg-white/10 transition-colors"
+      >
+        <span className="flex h-6 w-6 items-center justify-center rounded-full bg-black text-[14px]">
+          🐙
+        </span>
+        <span className="text-gray-200 hidden sm:inline">GitHub</span>
+      </a>
+    </div>
+
+    {/* Centered Copyright */}
+    <p className="text-xs md:text-sm text-gray-400 text-center mt-4">
+      © {new Date().getFullYear()} Raj Sharma · Portfolio
+    </p>
+
+  </div>
+</section>
+
     </main>
   );
 }

@@ -39,3 +39,48 @@ body {
 body {
   -ms-overflow-style: none;
 }
+
+.blob {
+  animation: blobMove 18s ease-in-out infinite;
+}
+
+@keyframes blobMove {
+  0% {
+    transform: translate3d(0, 0, 0) scale(1);
+  }
+  25% {
+    transform: translate3d(-20px, 10px, 0) scale(1.05);
+  }
+  50% {
+    transform: translate3d(10px, -15px, 0) scale(1.08);
+  }
+  75% {
+    transform: translate3d(20px, 15px, 0) scale(1.03);
+  }
+  100% {
+    transform: translate3d(0, 0, 0) scale(1);
+  }
+}
+
+/* UNIVERSAL BLUE–PURPLE GRADIENT BLOB STYLES */
+
+.gradient-blob {
+  position: absolute;
+  filter: blur(120px);
+  opacity: 0.45;
+  z-index: -1;
+  pointer-events: none;
+}
+
+.blob-blue {
+  background: radial-gradient(circle, #4B5CF0 0%, transparent 70%);
+}
+
+.blob-purple {
+  background: radial-gradient(circle, #7B4DF5 0%, transparent 70%);
+}
+
+.blob-lavender {
+  background: radial-gradient(circle, #9F65FF 0%, transparent 70%);
+}
+

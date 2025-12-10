@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import "./globals.css";
 import LenisScroller from "@/components/LenisScroller";
-import Navbar from "@/components/Navbar";
+// import Navbar from "@/components/Navbar";
 import { Outfit } from "next/font/google"; // 👈 ADD THIS
 import ScrollEffects from "@/components/ScrollEffects";
 
@@ -29,7 +29,7 @@ export default function RootLayout({
         className={`${outfit.className} bg-black text-white scroll-smooth`} // 👈 APPLY HERE
       >
         <LenisScroller>
-          <Navbar />
+          {/* <Navbar /> */}
           <ScrollEffects />
           <div>{children}</div>
           <BackToTopButton />
